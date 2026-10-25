@@ -114,31 +114,6 @@ dotnet test
 dotnet run --project src/ProductsApi.Api --launch-profile http
 ```
 
-Swagger UI (Development environment): <http://localhost:5080/swagger>
 
-### Testing the API
-
-```bash
-# Create (201 Created + Location header)
-curl -i -X POST http://localhost:5080/api/products \
-  -H "Content-Type: application/json" \
-  -d '{"name":"Mechanical Keyboard","price":79.99}'
-
-# List (200)
-curl -i http://localhost:5080/api/products
-
-# Get by id (200, or 404 if missing)
-curl -i http://localhost:5080/api/products/1
-
-# Validation failure (400 with per-field errors)
-curl -i -X POST http://localhost:5080/api/products \
-  -H "Content-Type: application/json" \
-  -d '{"name":"","price":-1}'
-```
-
-### Automated tests
-
-`dotnet test` runs xUnit tests covering the domain entity, FluentValidation rules, the MediatR
-pipeline and handlers, and controller status codes. They use an in-memory fake repository, so
 they **do not exercise EF Core or SQL Server**. Verify the database layer manually with the steps
 above (migrate, then run the curl calls against a real SQL Server).
